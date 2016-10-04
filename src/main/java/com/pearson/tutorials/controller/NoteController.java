@@ -3,6 +3,7 @@ package com.pearson.tutorials.controller;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.pearson.tutorials.model.Note;
 
@@ -10,6 +11,7 @@ import com.pearson.tutorials.model.Note;
  * @author Danushka Jayamaha
  *
  */
+@RestController
 public class NoteController {
 
     public HttpEntity<Note> createNote(final Note note) {

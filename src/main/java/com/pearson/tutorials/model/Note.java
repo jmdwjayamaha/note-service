@@ -38,7 +38,7 @@ public class Note {
     @ApiModelProperty(required = true)
     private String description;
 
-    /** The deleted. */
+    /** The deleted flag. */
     @JsonIgnore
     private boolean deleted;
 
