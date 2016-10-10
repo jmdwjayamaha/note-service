@@ -17,6 +17,11 @@ import com.pearson.tutorials.exception.BadRequestException;
 import com.pearson.tutorials.model.Note;
 import com.pearson.tutorials.service.NoteService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * The Class NoteController.
  *
@@ -37,8 +42,12 @@ public class NoteController {
      *            the note
      * @return the HTTP entity
      */
+    @ApiOperation(value = "/notes", notes = "Create Note", response = Note.class)
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Successfully Created"),
+            @ApiResponse(code = 400, message = "Invalid Request") })
     @RequestMapping(method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public HttpEntity<Note> createNote(@Validated @RequestBody final Note note) {
+    public HttpEntity<Note> createNote(
+            @ApiParam(value = "Note JSON Object", required = true) @Validated @RequestBody final Note note) {
 
         return new ResponseEntity<Note>(noteService.createNote(note), HttpStatus.CREATED);
     }
@@ -47,9 +56,12 @@ public class NoteController {
      * Gets the note.
      *
      * @param noteId
-     *            the note id
+     *            the note ID
      * @return the note
      */
+    @ApiOperation(value = "/notes/{noteId}", notes = "Retrieve Note", response = Note.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successfull"),
+            @ApiResponse(code = 404, message = "Note not found") })
     @RequestMapping(value = "/{noteId}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public HttpEntity<Note> getNote(@PathVariable("noteId") final String noteId) {
 
@@ -61,6 +73,8 @@ public class NoteController {
      *
      * @return the HTTP entity
      */
+    @ApiOperation(value = "/notes", notes = "Retrieve Notes", response = Note.class, responseContainer = "List")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successfull") })
     @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public HttpEntity<Iterable<Note>> listNotes() {
 
@@ -71,11 +85,14 @@ public class NoteController {
      * Update note.
      *
      * @param noteId
-     *            the note id
+     *            the note ID
      * @param note
      *            the note
      * @return the HTTP entity
      */
+    @ApiOperation(value = "/notes/{noteId}", notes = "Update Note", response = Note.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Updated"),
+            @ApiResponse(code = 404, message = "Note not found") })
     @RequestMapping(value = "/{noteId}", method = RequestMethod.PUT, produces = APPLICATION_JSON_VALUE,
             consumes = APPLICATION_JSON_VALUE)
     public HttpEntity<Note> updateNote(@PathVariable("noteId") final String noteId,
@@ -92,9 +109,12 @@ public class NoteController {
      * Delete note.
      *
      * @param noteId
-     *            the note id
+     *            the note ID
      * @return the HTTP entity
      */
+    @ApiOperation(value = "/notes/{noteId}", notes = "Delete Note", response = Note.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully Deleted"),
+            @ApiResponse(code = 404, message = "Note not found") })
     @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
     public HttpEntity<Void> deleteNote(@PathVariable("noteId") final String noteId) {
 

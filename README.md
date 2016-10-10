@@ -18,6 +18,17 @@ Steps to Run:
  - Run the created jar file
  	java -jar target/note-service-1.0-SNAPSHOT.jar
  
-Check the health after starting:
- - GET http://localhost:8080/health
+ - Check the health after starting:
+     GET http://localhost:8080/health
  
+ - Open the API Documentation - Swagger
+     http://localhost:8080/swagger-ui.html
+
+References:
+ - Setup Maven
+ 
+ 
+ - Install Java
+ 
+ 
+ - MongoDB Installation 
