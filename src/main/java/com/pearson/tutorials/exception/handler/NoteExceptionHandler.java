@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.pearson.tutorials.exception.BadRequestException;
 import com.pearson.tutorials.exception.ExceptionMessage;
 import com.pearson.tutorials.exception.NoteNotFoundException;
 
@@ -31,6 +32,22 @@ public class NoteExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoteNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ExceptionMessage resourceNotFoundException(final HttpServletRequest req, final NoteNotFoundException ex) {
+
+        return new ExceptionMessage(ex.getCode(), ex.getMessage());
+    }
+
+    /**
+     * Bad Request Exception.
+     *
+     * @param req
+     *            the request
+     * @param ex
+     *            the exception
+     * @return the exception message
+     */
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ExceptionMessage badRequestException(final HttpServletRequest req, final BadRequestException ex) {
 
         return new ExceptionMessage(ex.getCode(), ex.getMessage());
     }

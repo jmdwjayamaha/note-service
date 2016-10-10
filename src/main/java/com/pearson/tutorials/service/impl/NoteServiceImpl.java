@@ -1,5 +1,6 @@
 package com.pearson.tutorials.service.impl;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class NoteServiceImpl implements NoteService {
         final UUID uuid = UUID.randomUUID();
         note.setNoteId(uuid.toString());
 
+        note.setCreatedAt(new Date());
+        note.setUpdatedAt(note.getCreatedAt());
+
         return noteRepository.save(note);
     }
 
@@ -50,9 +54,11 @@ public class NoteServiceImpl implements NoteService {
             throw new NoteNotFoundException("The requested note is not found");
         }
 
-        // TODO: Update the existing
+        existingNote.setTopic(note.getTopic());
+        existingNote.setDescription(note.getDescription());
+        existingNote.setUpdatedAt(new Date());
 
-        return note;
+        return noteRepository.save(existingNote);
     }
 
     @Override
