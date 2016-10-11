@@ -29,6 +29,7 @@ References:
      http://maven.apache.org/install.html
  
  - Install Java
-     
+     http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html
  
  - MongoDB Installation 
+     https://docs.mongodb.com/manual/installation/?jmp=footer
